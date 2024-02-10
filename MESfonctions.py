@@ -102,7 +102,7 @@ def repetition_retangulaire(objet, matrice_de_translation, matrice_de_repetition
     """
     Fonction qui effectue une répétition rectangulaire sur un objet.
 
-        
+    À compléter
     """
     
     copie_objet = objet
