@@ -122,7 +122,25 @@ def repetition_retangulaire(objet, matrice_de_translation, matrice_de_repetition
     F, V, N = copie_objet
     
     return [F, V, N]
-            
+
+def repetition_rotative():
+    """
+    À faire
+    """
+    return
+
+
+def repetition_sur_courbe():
+    """
+    À faire
+    """
+    return   
+
+def etirement():
+    """
+    À faire
+    """
+    return
 
 
 
