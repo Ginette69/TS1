@@ -144,6 +144,26 @@ def repetition_retangulaire(objet, nx=0, ny=0, nz=0, dx=0, dy=0, dz=0):
 
     return [F, V, N]
 
+def centrer(objet):
+    
+    """
+    Fonction qui centre un objet sur le plan xy selon l'axe z.
+
+    'objet' est l'objet qu'on veut centrer
+    """
+    F, V, N = objet[0], objet[1], objet[2]
+
+    centre_x = (min(V[:,0]) + max(V[:,0])) / 2 # Trouve le centre de l'objet en x
+
+    centre_y = (min(V[:,1]) + max(V[:,1])) / 2 # Trouve le centre de l'objet en y
+
+    min_z = min(V[:,2]) # Trouve la coordonnée mimimale en z pour situer la base de l'objet
+
+    F, V, N = Translation(objet, np.array([-centre_x, -centre_y, -min_z]))
+
+    return [F, V, N]
+    
+
 def repetition_rotative():
     """
     À faire
