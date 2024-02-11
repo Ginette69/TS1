@@ -118,14 +118,14 @@ def repetition_retangulaire(objet, nx=0, ny=0, nz=0, dx=0, dy=0, dz=0):
             objet_translater = copy.deepcopy(Translation(objet_repeter, np.array([dx, 0, 0])))
 
             objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
-        objet_finalx = copy.deepcopy(objet_final)
+    objet_finalx = copy.deepcopy(objet_final)
 
     if ny != 0:
         for j in range(1, ny):
             objet_translater = copy.deepcopy(Translation(objet_finalx, np.array([0, dy, 0])))
 
             objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
-        objet_finaly = copy.deepcopy(objet_final)
+    objet_finaly = copy.deepcopy(objet_final)
 
     if nz != 0:
         if ny != 0:
