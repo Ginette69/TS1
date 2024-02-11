@@ -105,7 +105,7 @@ def repetition_retangulaire(objet, nx=0, ny=0, nz=0, dx=0, dy=0, dz=0):
 
     'objet' est l'objet sur lequel on effectue la répétition rectangualire.
 
-    'nx', 'ny', 'nz' sont le nombre de fois qu'on répète la répétition en x, y ou/et z.
+    'nx', 'ny', 'nz' sont le nombre de fois qu'on répète l'objet en x, y ou/et z.
 
     'dx', 'dy', 'dz' sont les distances entre chaque répétition.
     """
@@ -115,29 +115,29 @@ def repetition_retangulaire(objet, nx=0, ny=0, nz=0, dx=0, dy=0, dz=0):
 
     if nx != 0:
         for i in range(1, nx):
-            objet_translater = copy.deepcopy(Translation(objet_repeter, np.array([dx, 0, 0])))
+            objet_translater = copy.deepcopy(Translation(objet_repeter, np.array([dx, 0, 0]))) # Effectue une translation sur l'objet
+            objet_final = copy.deepcopy(Groupe(objet_final, objet_translater)) # Groupe l'objet translaté et le groupe déjà fait
 
-            objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
-    objet_finalx = copy.deepcopy(objet_final)
-
+    objet_finalx = copy.deepcopy(objet_final) # Garde en mémoire le groupe fait en x pour l'utiliser en y ou z
+    
+    # La même logique est applquée en y et en z.
+    
     if ny != 0:
         for j in range(1, ny):
             objet_translater = copy.deepcopy(Translation(objet_finalx, np.array([0, dy, 0])))
-
             objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
+
     objet_finaly = copy.deepcopy(objet_final)
 
     if nz != 0:
         if ny != 0:
             for k in range(1, nz):
                 objet_translater = copy.deepcopy(Translation(objet_finaly, np.array([0, 0, dz])))
-
                 objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
         
         elif nx != 0:
              for k in range(1, nz):
                 objet_translater = copy.deepcopy(Translation(objet_finalx, np.array([0, 0, dz])))
-
                 objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
 
     F, V, N = objet_final[0], objet_final[1], objet_final[2]
