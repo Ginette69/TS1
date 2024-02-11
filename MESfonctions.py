@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 from MEC1315_STL import *
 
 def rotation(objet, axe, theta, matrice_de_translation=np.array([0, 0, 0])):
@@ -97,30 +98,50 @@ def Homothétie(objet, position_centre_homothetie, facteur_de_grossissement):
     return [F, U, N]
 
 
-def repetition_retangulaire(objet, matrice_de_translation, matrice_de_repetition):
+def repetition_retangulaire(objet, nx=0, ny=0, nz=0, dx=0, dy=0, dz=0):
     
     """
     Fonction qui effectue une répétition rectangulaire sur un objet.
 
-    À compléter
+    'objet' est l'objet sur lequel on effectue la répétition rectangualire.
+
+    'nx', 'ny', 'nz' sont le nombre de fois qu'on répète la répétition en x, y ou/et z.
+
+    'dx', 'dy', 'dz' sont les distances entre chaque répétition.
     """
     
-    copie_objet = objet
-    
-    if matrice_de_repetition[0] != 0:
-        for rep in range(matrice_de_repetition[0] + 1):
-            copie_objet = Groupe(copie_objet, Translation(copie_objet, np.array([matrice_de_translation[0], 0, 0])))
-                           
-    if matrice_de_repetition[1] != 0:
-        for rep in range(matrice_de_repetition[1] + 1):
-            copie_objet = Groupe(copie_objet, Translation(copie_objet, np.array([0, matrice_de_translation[1], 0])))
-    
-    if matrice_de_repetition[2] != 0:
-        for rep in range(matrice_de_repetition[2] + 1):
-            copie_objet = Groupe(copie_objet, Translation(copie_objet, np.array([0, 0, matrice_de_translation[2]])))
-    
-    F, V, N = copie_objet
-    
+    objet_repeter = copy.deepcopy(objet)
+    objet_final = copy.deepcopy(objet)
+
+    if nx != 0:
+        for i in range(1, nx):
+            objet_translater = copy.deepcopy(Translation(objet_repeter, np.array([dx, 0, 0])))
+
+            objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
+        objet_finalx = copy.deepcopy(objet_final)
+
+    if ny != 0:
+        for j in range(1, ny):
+            objet_translater = copy.deepcopy(Translation(objet_finalx, np.array([0, dy, 0])))
+
+            objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
+        objet_finaly = copy.deepcopy(objet_final)
+
+    if nz != 0:
+        if ny != 0:
+            for k in range(1, nz):
+                objet_translater = copy.deepcopy(Translation(objet_finaly, np.array([0, 0, dz])))
+
+                objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
+        
+        elif nx != 0:
+             for k in range(1, nz):
+                objet_translater = copy.deepcopy(Translation(objet_finalx, np.array([0, 0, dz])))
+
+                objet_final = copy.deepcopy(Groupe(objet_final, objet_translater))
+
+    F, V, N = objet_final[0], objet_final[1], objet_final[2]
+
     return [F, V, N]
 
 def repetition_rotative():
