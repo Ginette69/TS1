@@ -183,7 +183,11 @@ def etirement():
     """
     return
 
-
+def miseechelle()
+    """
+    À faire
+    """
+    return
 
 
 
